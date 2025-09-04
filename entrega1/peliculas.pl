@@ -25,7 +25,7 @@ actor(tom_hanks, naufrago).
 ?- director(christopher_nolan, TituloPelicula).
 % Recorre la base buscando hechos director, donde el nombre del director sea christopher_nolan. 
 % Compara todos los hechos director en el orden que están escritos y luego determina cuales si son verdaderos.
-% Si encuentra christopher_nolan, sigue con el siguiente argumento (la otra parte de la consulta).
+% Si encuentra christopher_nolan, sigue con la otra parte de la consulta.
 % encuentra director(christopher_nolan, inception). Es verdadero.
     % christopher_nolan coincide -> continua con el siguiente argumento.
     % TituloPelicula es variable -> sustituye por inception.
