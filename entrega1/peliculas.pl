@@ -113,12 +113,30 @@ actor(tom_hanks, naufrago).
 % Consultas propias
 
 % Consulta 5
--director(steven_spielberg, Titulo), pelicula(Titulo, Genero).
+-director(steven_spielberg, TituloPelicula), pelicula(TituloPelicula, Genero).
+% Recorre la base buscando hechos director donde el nombre del director sea steven_spielberg.
+% Encuentra director(steven_spielberg, jurassic_park).
+    % Sustituye y unifica TituloPelicula por jurassic_park.
+% Luego pasa a la segunda parte de la consulta: pelicula(jurassic_park, Genero).
+% Busca hechos pelicula donde el titulo de película sea jurassic_park.
+% Encuentra pelicula(jurassic_park, aventura).
+    % Sustituye Genero por aventura.
 % Salida:
+% Titulo = jurassic_park,
+% Genero = aventura.
 
 % Consulta 6
--director(nombre_director, Titulo), pelicula(Titulo, ciencia_ficcion).
+-director(NombreDirector, jurassic_park), pelicula(jurassic_park, Genero).
+% Recorre la base buscando hechos director donde el segundo argumento sea jurassic_park.
+% Encuentra director(steven_spielberg, jurassic_park).
+    % Sustituye NombreDirector por steven_spielberg.
+% Luego pasa a la segunda parte de la consulta: pelicula(jurassic_park, Genero).
+% Busca hechos pelicula donde el titulo de la pelicula sea jurassic_park.
+% Encuentra pelicula(jurassic_park, aventura).
+    % Sustituye Genero por aventura.
 % Salida:
+% NombreDirector = steven_spielberg,
+% Genero = aventura.
 
 %PARTE 3
 
@@ -150,8 +168,25 @@ es_famosa(TituloPelicula) :-
 
 % 1)
 
-% 2)
+?-pelicula(TituloPelicula, ciencia_ficcion), actor(NombreActor, TituloPelicula).
 
+% En la consulta ?- pelicula(TituloPelicula, ciencia_ficcion), actor(NombreActor, TituloPelicula)., 
+% Prolog primero intenta resolver la consulta pelicula(TituloPelicula, ciencia_ficcion). 
+% Para ello recorre los hechos de la base en el orden que fueron escritos y busca coincidencias. 
+% Al encontrar, por ejemplo, pelicula(inception, ciencia_ficcion), unifica los términos: 
+% TituloPelicula (variable) se sustituye por inception, ya que ambos ocupan la misma posición y son idénticos. 
+% Luego aplica esta sustitución a la derecha, obteniendo actor(NombreActor, inception). 
+% Prolog busca ahora actores de esa película en la base y, al encontrar actor(leonardo_dicaprio, inception), unifica NombreActor con leonardo_dicaprio. 
+% La solución parcial se completa y se devuelve como respuesta.
+
+% Cuando el usuario solicita más soluciones (;), Prolog inicia el proceso de backtracking. 
+% Busca si existen más actores en la misma película de ciencia ficción. 
+% Si los hubiera, devuelve nuevas respuestas unificando la variable NombreActor con esos hechos alternativos. 
+% Una vez finalizadas esas opciones, retrocede a pelicula(TituloPelicula, ciencia_ficcion).
+% y prueba con otra coincidencia, por ejemplo pelicula(interestellar, ciencia_ficcion). Con esa nueva sustitución, repite el proceso para actor. 
+% Así, mediante unificación y backtracking, Prolog va encadenando los resultados hasta enumerar todas las soluciones posibles.
+
+% 2)
 sexo(leonardo_dicaprio, masculino).
 sexo(tom_hanks, masculino).
 sexo(matthew_mcconaughey, masculino).
@@ -161,6 +196,6 @@ sexo(robin_wright, femenino).
 % Regla: actriz_en_pelicula es verdadero si el sexo del actor es femenino y actua en esa película.
 actriz_en_pelicula(NombreActriz, TituloPelicula) :-
     sexo(NombreActriz, femenino),
-actor(NombreActriz, TituloPelicula).
+    actor(NombreActriz, TituloPelicula).
 
 
