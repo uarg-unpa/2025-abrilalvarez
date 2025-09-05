@@ -27,8 +27,8 @@ actor(tom_hanks, naufrago).
 % Compara todos los hechos director en el orden que están escritos y luego determina cuales si son verdaderos.
 % Si encuentra christopher_nolan, sigue con la otra parte de la consulta.
 % encuentra director(christopher_nolan, inception). Es verdadero.
-    % christopher_nolan coincide -> continua con el siguiente argumento.
-    % TituloPelicula es variable -> sustituye por inception.
+    % christopher_nolan coincide -> continua con la siguiente parte.
+    % TituloPelicula es variable -> sustituye y unifica por inception.
 %Sigue recorriendo y compara. No encuentra más hechos director que coincidan.
 %Salida: TituloPelicula = inception.
 
@@ -100,15 +100,25 @@ actor(tom_hanks, naufrago).
 ?-actor(NombreActor, inception), actor(NombreActor, OtraPelicula), OtraPelicula \= inception.
 % Recorre la base buscandos actores que actuen en inception.
 % Compara todos los hechos actor en el orden que están escritos.
-% Obtiene el nombre y pasa a la derecha. 
-% Busca hechos actor en la base que coincidan con el nombre del actor de la anterior consulta y actuen en otra película.
-% Compara que el nombre de la película sea distinto a inception. Si se cumple, entonces la consulta es verdadera y retorna el resultado.
+% Encuentra el primer hecho actor(leonardo_dicaprio, inception). Inception coincide, por lo tanto, unifica y sustituye NombreActor por leonardo_dicaprio. 
+% Sigue recorriendo la base hasta el final comparando los hechos actor. No encuentra más coincidencias.
+% Obtiene el nombre leonardo_dicaprio y pasa a la derecha. Reemplaza en actor(NombreActor, OtraPelicula) el nombre del actor por leonardo_dicaprio.
+% Busca hechos actor en toda la base que coincidan con el nombre del actor y actuen en otra película (que no sea inception).
+% Compara todos los hechos actor en el orden que están escritos y encuentra actor(leonardo_dicaprio, revenant). Es verdadero. 
+% Llega al final y no encuentra más hechos de actor que coincidan.
+% Salida:
+% NombreActor = leonardo_dicaprio,
+% OtraPelicula = revenant.
 
 % Consultas propias
 
 % Consulta 5
+-director(steven_spielberg, Titulo), pelicula(Titulo, Genero).
+% Salida:
 
 % Consulta 6
+-director(nombre_director, Titulo), pelicula(Titulo, ciencia_ficcion).
+% Salida:
 
 %PARTE 3
 
