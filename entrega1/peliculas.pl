@@ -10,12 +10,12 @@ director(christopher_nolan, inception).
 director(steven_spielberg, jurassic_park).
 
 %AGREGAR AL MENOS 5 HECHOS ADICIONALES
-pelicula(interestellar, ciencia_ficcion).
+pelicula(interstellar, ciencia_ficcion).
 pelicula(revenant, aventura).
 pelicula(naufrago, aventura).
 
-actor(matthew_mcconaughey, interestellar).
-actor(jessica_chastain, interestellar).
+actor(matthew_mcconaughey, interstellar).
+actor(jessica_chastain, interstellar).
 actor(robin_wright, forrest_gump).
 actor(leonardo_dicaprio, revenant).
 actor(tom_hanks, naufrago).
@@ -54,9 +54,9 @@ actor(tom_hanks, naufrago).
 %Salida:
 %TituloPelicula = inception,
 %NombreActor = leonardo_dicaprio;
-%TituloPelicula = interestellar,
+%TituloPelicula = interstellar,
 %NombreActor = matthew_mcconaughey;
-%TituloPelicula = interestellar,
+%TituloPelicula = interstellar,
 %NombreActor = jessica_chastain.
 
 % c) Consulta 3
@@ -72,8 +72,8 @@ actor(tom_hanks, naufrago).
 %Encuentra pelicula(jurassic_park, aventura):
     % TituloPelicula es una variable -> sustituye por jurassic_park.
     % Genero es una variable -> sustituye por aventura.
-%Encuentra pelicula(interestellar, ciencia_ficcion):
-    %TituloPelicula es una variable -> sustituye por interestellar.
+%Encuentra pelicula(interstellar, ciencia_ficcion):
+    %TituloPelicula es una variable -> sustituye por interstellar.
     %Genero es una variable -> sustituye por ciencia_ficcion.
 %Encuentra pelicula(revenant, aventura):
     %TituloPelicula es una variable -> sustituye por revenant.
@@ -89,7 +89,7 @@ actor(tom_hanks, naufrago).
 %Genero = drama;
 %TituloPelicula = jurassic_park,
 %Genero = aventura;
-%TituloPelicula = interestellar,
+%TituloPelicula = interstellar,
 %Genero = ciencia_ficcion;
 %TituloPelicula = revenant,
 %Genero = aventura;
@@ -112,8 +112,8 @@ actor(tom_hanks, naufrago).
 
 % Consultas propias
 
-% Consulta 5
--director(steven_spielberg, TituloPelicula), pelicula(TituloPelicula, Genero).
+% Consulta 5: ¿Qué películas dirigió Steven Spielberg y cuál es el género de cada una?
+?-director(steven_spielberg, TituloPelicula), pelicula(TituloPelicula, Genero).
 % Recorre la base buscando hechos director donde el nombre del director sea steven_spielberg.
 % Encuentra director(steven_spielberg, jurassic_park).
     % Sustituye y unifica TituloPelicula por jurassic_park.
@@ -125,8 +125,8 @@ actor(tom_hanks, naufrago).
 % Titulo = jurassic_park,
 % Genero = aventura.
 
-% Consulta 6
--director(NombreDirector, jurassic_park), pelicula(jurassic_park, Genero).
+% Consulta 6: ¿Qué director dirigió jurassic park y cuál es su género?
+?-director(NombreDirector, jurassic_park), pelicula(jurassic_park, Genero).
 % Recorre la base buscando hechos director donde el segundo argumento sea jurassic_park.
 % Encuentra director(steven_spielberg, jurassic_park).
     % Sustituye NombreDirector por steven_spielberg.
@@ -159,7 +159,7 @@ pelicula_con_colaboracion(TituloPelicula) :-
     actor(NombreActor1, TituloPelicula), 
     actor(NombreActor2, TituloPelicula), 
     NombreActor1 \= NombreActor2.
-% regla propia: 
+% regla propia: es_famosa(TituloPelicula): Verdadero si una película tiene al menos un actor y un director asociados.
 es_famosa(TituloPelicula) :- 
     director(NombreDirector, TituloPelicula), 
     actor(NombreActor, TituloPelicula).
@@ -183,7 +183,7 @@ es_famosa(TituloPelicula) :-
 % Busca si existen más actores en la misma película de ciencia ficción. 
 % Si los hubiera, devuelve nuevas respuestas unificando la variable NombreActor con esos hechos alternativos. 
 % Una vez finalizadas esas opciones, retrocede a pelicula(TituloPelicula, ciencia_ficcion).
-% y prueba con otra coincidencia, por ejemplo pelicula(interestellar, ciencia_ficcion). Con esa nueva sustitución, repite el proceso para actor. 
+% y prueba con otra coincidencia, por ejemplo pelicula(interstellar, ciencia_ficcion). Con esa nueva sustitución, repite el proceso para actor. 
 % Así, mediante unificación y backtracking, Prolog va encadenando los resultados hasta enumerar todas las soluciones posibles.
 
 % 2)
