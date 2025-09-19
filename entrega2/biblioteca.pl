@@ -57,6 +57,17 @@ eliminar_libro(Titulo) :-
 % Salida: Libro el_principito está prestado.
 
 % Ejercicio Adicional
+eliminar_prestamo(Titulo) :-
+    prestado(Titulo, _),
+    retract(prestado(Titulo, _)),
+    write('Préstamo eliminado: '), write(Titulo), nl.
+
+eliminar_prestamo(Titulo) :-
+    \+ prestado(Titulo, _),
+    write('Error: No existe préstamo para '), write(Titulo), nl,
+    fail.
+
+
 
 
 
